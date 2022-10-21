@@ -4,9 +4,11 @@ specifiers:
   '@emotion/react': ^11.10.4
   '@mantine/core': ^5.6.0
   '@mantine/dates': ^5.6.0
+  '@mantine/ds': ^5.6.0
   '@mantine/hooks': ^5.6.0
   '@mantine/prism': ^5.6.0
   '@prisma/client': ^4.4.0
+  '@tabler/icons': ^1.106.0
   '@tanstack/react-query': ^4.10.0
   '@trpc/client': 10.0.0-proxy-beta.17
   '@trpc/next': 10.0.0-proxy-beta.17
@@ -37,9 +39,11 @@ dependencies:
   '@emotion/react': 11.10.4_luyos4mouogwq6z3wafb3re4ce
   '@mantine/core': 5.6.0_i6niellgd3hbl3q3rgxh27rwlm
   '@mantine/dates': 5.6.0_3qxsolgihmrinatapqz5bzdxie
+  '@mantine/ds': 5.6.0_yhpa5qggjjbrfsezgfc6mfqlum
   '@mantine/hooks': 5.6.0_react@18.2.0
   '@mantine/prism': 5.6.0_w74vbagrxsjcazksava5kujbr4
   '@prisma/client': 4.5.0_prisma@4.5.0
+  '@tabler/icons': 1.106.0_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
   '@trpc/client': 10.0.0-proxy-beta.17_cpdrhv2jbc2hqu4rmlrkpw2faa
   '@trpc/next': 10.0.0-proxy-beta.17_dzic5qqu4g5njip5df4nsnow4e
@@ -339,6 +343,25 @@ packages:
       '@mantine/utils': 5.6.0_react@18.2.0
       dayjs: 1.11.6
       react: 18.2.0
+    dev: false
+
+  /@mantine/ds/5.6.0_yhpa5qggjjbrfsezgfc6mfqlum:
+    resolution: {integrity: sha512-OeGw6e2c+8sso0IYaWEJkb6A2tEKq7wXXvwU8+qaqmDHfdi9IA+PB2ztNbap8ypCph1VxTgiecBvdw5j5WFe0A==}
+    peerDependencies:
+      '@mantine/core': 5.6.0
+      '@mantine/hooks': 5.6.0
+      '@mantine/prism': 5.6.0
+      '@tabler/icons': '*'
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 5.6.0_i6niellgd3hbl3q3rgxh27rwlm
+      '@mantine/hooks': 5.6.0_react@18.2.0
+      '@mantine/prism': 5.6.0_w74vbagrxsjcazksava5kujbr4
+      '@mantine/utils': 5.6.0_react@18.2.0
+      '@tabler/icons': 1.106.0_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@mantine/hooks/5.6.0_react@18.2.0:
@@ -677,6 +700,21 @@ packages:
     resolution: {integrity: sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw==}
     dependencies:
       tslib: 2.4.0
+    dev: false
+
+  /@tabler/icons/1.106.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ldN/ucjGrtAE3YlU8ct8j13ZNbrUueEIqw3jVpGQ55eVztlqVBzGnZbF5kJyLJGmHtxVblyyhEWsRKutFbB21A==}
+    peerDependencies:
+      react: ^16.x || 17.x || 18.x
+      react-dom: ^16.x || 17.x || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@tanstack/query-core/4.12.0:
