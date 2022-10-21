@@ -75,7 +75,13 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 }
 
 const mockdata = [
-  { icon: IconHome2, label: "Home", onClick: () => {console.log("tes")} },
+  {
+    icon: IconHome2,
+    label: "Home",
+    onClick: () => {
+      console.log("tes");
+    },
+  },
   { icon: IconGauge, label: "Dashboard" },
   { icon: IconDeviceDesktopAnalytics, label: "Analytics" },
   { icon: IconCalendarStats, label: "Releases" },
@@ -92,21 +98,25 @@ export function NavbarMinimal() {
       {...link}
       key={link.label}
       active={index === active}
-      onClick={() => {setActive(index); link.onClick}}
+      onClick={() => {
+        setActive(index);
+        link.onClick;
+      }}
     />
   ));
 
   return (
     <Navbar height={750} width={{ base: 80 }} p="md">
-      <Center>
-        {/* icons */}
-      </Center>
+      <Center>{/* icons */}</Center>
       <Navbar.Section grow mt={50}>
         <Stack justify="center" spacing={0}>
           {links}
         </Stack>
       </Navbar.Section>
+
       <Navbar.Section>
+
+
         <Stack justify="center" spacing={0}>
           <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
           <NavbarLink icon={IconLogout} label="Logout" />
