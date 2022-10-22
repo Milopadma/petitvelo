@@ -4,6 +4,7 @@ import { trpc } from "../utils/trpc";
 //user imports
 import moment from "moment";
 import { ScrollArea } from "@mantine/core";
+import { useState } from "react";
 
 //placeholder data for timeline
 const groups = [
@@ -54,14 +55,31 @@ const Home: NextPage = () => {
         <div className="flex w-full items-center justify-center bg-neutral-200 pt-6 text-2xl text-blue-500">
           {hello.data ? <p>{hello.data.greeting}</p> : <p>Loading..</p>}
         </div>
-        <ScrollArea style={{ width: 800, height: 200 }}>
-          <div style={{ width: 600 }}>
-            <WeekGrid />
-            <DaySquare />
+        <ScrollArea className="min-w-screen">
+          <div className="min-w-fit">
+            <MonthSquare />
           </div>
         </ScrollArea>
       </main>
     </>
+  );
+};
+
+//monthsquare shows 4 weekgrids
+const MonthSquare: React.FC = () => {
+  const [month, setMonth] = useState(moment());
+  const [week, setWeek] = useState(moment().startOf("week"));
+  return (
+    <div className="flex flex-col">
+      <h2>
+        <span className="text-2xl"></span>
+        <span className="text-2xl">{month.format("MMMM")}</span>
+      </h2>
+      <WeekGrid />
+      <WeekGrid />
+      <WeekGrid />
+      <WeekGrid />
+    </div>
   );
 };
 
@@ -80,8 +98,9 @@ const WeekGrid: React.FC = () => {
 const DaySquare: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="h-12 w-12 bg-neutral-500 border-2 border-neutral-300"></div>
-      <div className="text-center text-xs">Day</div>
+      <div className="h-28 w-28 border-2 border-neutral-300 bg-neutral-500">
+        <div className="text-center text-xs text-neutral-100">Day</div>
+      </div>
     </div>
   );
 };
