@@ -23,7 +23,7 @@ const items = [
     group: 1,
     title: "item 1",
     start_time: moment(),
-    end_time: moment().add(1, "hour"),
+    end_time: moment().add(3, "hour"),
   },
   {
     id: 2,
@@ -91,6 +91,7 @@ const Timeline = () => {
 
   return (
     <div className="flex flex-col">
+      {/* for the week prev and next */}
       <div className="flex flex-row">
         <button
           className="rounded-l bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
@@ -110,9 +111,9 @@ const Timeline = () => {
       </div>
       {/* for the left side column groups*/}
       <div className="flex flex-row">
-        <div className="flex w-1/6 flex-col">
+        <div className="flex w-1/7 flex-col justify-around">
           {groups.map((group) => (
-            <div className="bg-blue-500 py-2 px-4 font-bold text-white">
+            <div className="bg-blue-500 py-3 px-4 font-bold text-white">
               {group.title}
             </div>
           ))}
