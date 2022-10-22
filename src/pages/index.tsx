@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
 //user imports
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { ScrollArea } from "@mantine/core";
 import { useState } from "react";
 
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
         </div>
         <ScrollArea className="min-w-screen">
           <div className="min-w-fit">
-            <MonthSquare />
+            <Timeline />
           </div>
         </ScrollArea>
       </main>
@@ -65,41 +65,102 @@ const Home: NextPage = () => {
   );
 };
 
-//monthsquare shows 4 weekgrids
-const MonthSquare: React.FC = () => {
-  const [month, setMonth] = useState(moment());
-  const [week, setWeek] = useState(moment().startOf("week"));
+// timeline starts at the first monday of the week
+const getStartOfWeek = (date: Moment) => {
+  const startOfWeek = date.clone().startOf("week");
+  if (startOfWeek.day() !== 1) {
+    startOfWeek.add(1, "week");
+  }
+  return startOfWeek;
+};
+
+// timeline ends at the last sunday of the week
+const getEndOfWeek = (date: Moment) => {
+  const endOfWeek = date.clone().endOf("week");
+  if (endOfWeek.day() !== 0) {
+    endOfWeek.subtract(1, "week");
+  }
+  return endOfWeek;
+};
+
+// timeline
+const Timeline = () => {
+  const [date, setDate] = useState(moment());
+  const startOfWeek = getStartOfWeek(date);
+  const endOfWeek = getEndOfWeek(date);
+
   return (
     <div className="flex flex-col">
-      <h2>
-        <span className="text-2xl"></span>
-        <span className="text-2xl">{month.format("MMMM")}</span>
-      </h2>
-      <WeekGrid />
-      <WeekGrid />
-      <WeekGrid />
-      <WeekGrid />
-    </div>
-  );
-};
-
-const WeekGrid: React.FC = () => {
-  const length = 7;
-  return (
-    <div className="flex flex-row">
-      {/* show 21 DaySquares */}
-      {[...Array(length)].map((_, i) => (
-        <DaySquare key={i} />
-      ))}
-    </div>
-  );
-};
-
-const DaySquare: React.FC = () => {
-  return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="h-28 w-28 border-2 border-neutral-300 bg-neutral-500">
-        <div className="text-center text-xs text-neutral-100">Day</div>
+      <div className="flex flex-row">
+        <button
+          className="rounded-l bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+          onClick={() => setDate(date.clone().subtract(1, "week"))}
+        >
+          Prev
+        </button>
+        <div className="bg-blue-500 py-2 px-4 font-bold text-white">
+          {startOfWeek.format("MMM Do")} - {endOfWeek.format("MMM Do")}
+        </div>
+        <button
+          className="rounded-r bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+          onClick={() => setDate(date.clone().add(1, "week"))}
+        >
+          Next
+        </button>
+      </div>
+      {/* for the left side column groups*/}
+      <div className="flex flex-row">
+        <div className="flex w-1/6 flex-col">
+          {groups.map((group) => (
+            <div className="bg-blue-500 py-2 px-4 font-bold text-white">
+              {group.title}
+            </div>
+          ))}
+        </div>
+        {/* for the day squares row */}
+        <div className="flex w-5/6 flex-col">
+          <div className="flex flex-row">
+            {Array.from({ length: 7 }).map((_, i) => {
+              const day = startOfWeek.clone().add(i, "day");
+              return (
+                <div className="w-1/7 flex flex-col">
+                  <div className="bg-blue-500 py-2 px-4 font-bold text-white">
+                    {day.format("ddd")}
+                  </div>
+                  <div className="bg-blue-300 py-2 px-4 font-bold text-white">
+                    {day.format("MMM Do")}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {/* for the item views */}
+          <div className="flex flex-row">
+            {Array.from({ length: 7 }).map((_, i) => {
+              const day = startOfWeek.clone().add(i, "day");
+              return (
+                <div className="w-1/7 flex flex-col">
+                  {items
+                    .filter((item) => item.start_time.isSame(day, "day"))
+                    .map((item) => (
+                      <div
+                        className="bg-blue-200 py-2 px-4 font-bold text-white"
+                        style={{
+                          width: `${item.end_time.diff(
+                            item.start_time,
+                            "minutes"
+                          )}px`,
+                          left: `${item.start_time.diff(day, "minutes")}px`,
+                        }}
+                      >
+                        {item.title}
+                      </div>
+                    ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
